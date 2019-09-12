@@ -13,6 +13,11 @@ PREFIX = INFO[1]
 client = commands.Bot(command_prefix = PREFIX)
 nlp = None
 start_time = datetime.datetime.utcnow()
+greetings = ['hi', 'hello', 'hey']
+'''
+with open('badwords.txt', 'r') as file:
+    bad_words = file.read().split()
+'''
 
 
 @client.event
@@ -35,10 +40,41 @@ async def on_command_error(ctx, error):
         return
     raise error
 
+
+@client.event
+async def on_message(message):
+    '''
+    if message.author == client.user:
+        return
+    '''
+    
+    content = message.content.strip().lower()
+    author = message.author
+    channel = message.channel
+    
+    if any(greeting in content for greeting in greetings):
+        await channel.send('Bark!')
+        
+    await client.process_commands(message)
+    
+    
+  
+@client.command(name='info',
+                aliases=['botinfo'])
+async def info(ctx):
+    '''
+    Returns the code for the bot.
+    '''
+    await ctx.send('```css\nGitHub: https://github.com/nguobadia/Dubs-Bot \n```')
+
+
+
 @client.command(name='ping',
                 description='Pong! (returns latency)')
 async def ping(ctx):
     await ctx.send('Pong! {0}'.format(round(client.latency, 5)))
+
+
 
 @client.command(name = '8ball',
                 description = 'Answers a yes or no questions',
@@ -57,6 +93,17 @@ async def eight_ball(ctx):
     
     await ctx.send(random.choice(responses))
     
+  
+  
+@client.command(name='schedule')
+async def schedule(ctx):
+    '''
+    Returns a list of upcoming events.
+    '''  
+    await ctx.send('Coming soon!')
+
+  
+  
 @client.command(name='uptime',
                 description='Returns how long the bot has been running for.')
 async def uptime(ctx):
