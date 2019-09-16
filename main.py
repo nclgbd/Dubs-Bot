@@ -72,7 +72,10 @@ async def info(ctx):
     '''
     Returns the code for the bot.
     '''
-    await ctx.send('```css\nGitHub: https://github.com/nguobadia/Dubs-Bot \n```')
+    embed = discord.Embed(color=0x4b2e83)
+    embed.add_field(name='GitHub', value='https://github.com/nguobadia/Dubs-Bot')
+    
+    await ctx.send(embed=embed)
 
 
 @client.command(name='socials',
