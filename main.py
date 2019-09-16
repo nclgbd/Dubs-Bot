@@ -40,13 +40,13 @@ async def on_command_error(ctx, error):
         return
     raise error
 
-
+'''
 @client.event
 async def on_message(message):
-    '''
+    
     if message.author == client.user:
         return
-    '''
+    
     
     content = message.content.strip().lower()
     author = message.author
@@ -56,7 +56,7 @@ async def on_message(message):
         await channel.send('Bark!')
         
     await client.process_commands(message)
-    
+'''    
     
   
 @client.command(name='info',
@@ -67,6 +67,20 @@ async def info(ctx):
     '''
     await ctx.send('```css\nGitHub: https://github.com/nguobadia/Dubs-Bot \n```')
 
+
+@client.command(name='socials',
+                description='Returns a list of all our social media with links.')
+async def socials(ctx):
+    embed = discord.Embed(title="Our Social Media Links!", color=0x4b2e83)
+    embed.set_footer(text='Follow any of these links to join our growing community!')
+    embed.set_thumbnail(url='https://media.discordapp.net/attachments/508830285698301992/623042784835796992/huscii_ascii.jpg?width=1288&height=1151')
+    
+    embed.add_field(name='DawgDen', value='https://uw-tacoma.presence.io/organization/huscii-coding-club')
+    embed.add_field(name='Slack', value='https://husciicoding.slack.com/', inline=False)
+    embed.add_field(name='FaceBook', value='https://www.facebook.com/groups/UWTProgrammingClub/')
+    embed.add_field(name='Discord', value='https://discord.gg/vt5ZWdN')
+    
+    await ctx.send(embed=embed)
 
 
 @client.command(name='ping',
